@@ -1,0 +1,20 @@
+{
+  "name": "node-chartjs",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^1.6.9",
+    "canvas-prebuilt": "^1.6.5-prerelease.1",
+    "chart.js": "^2.7.1",
+    "jsdom": "^9.12.0",
+    "pify": "^3.0.0",
+    "requirejs": "^2.3.5"
+  }
+}
