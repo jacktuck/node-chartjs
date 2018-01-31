@@ -1,48 +1,61 @@
-const jsdom = require('jsdom')
-const Canvas = require('canvas-prebuilt')
-const pify = require('pify')
-const config = require('./config')
+var fs = require('fs')
+var jsdom = require('jsdom')
+var Canvas = require('canvas-prebuilt')
+var pify = require('pify')
+var config = require('./config')
+var opn = require('opn')
 
-const eval = pify(jsdom.env)
-
-jsdom.defaultDocumentFeatures = {
-  FetchExternalResources: ['script'],
-  ProcessExternalResources: true
-}
+var env = pify(jsdom.env)
 
 ;(async function (exports) {
-  const chart = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js'
+  var chart = 'https://cdn.jsdelivr.net/npm/chart.js@2.4/dist/Chart.min.js'
 
-  const html = `<html>
+  var html = `<html>
     <body>
-      <div id="chart-div" style="font-size:12; width:400; height:400;">
-        <canvas id="myChart" width="400" height="400"></canvas>
+      <div id='chart-div' style='font-size:12; width:400; height:400;'>
+        <canvas id='myChart' width=400 height=400></canvas>
       </div>
     </body>
 
   </html>`
 
   try {
-    const window = await eval(html, [chart])
+    var window = await env(html, [chart], {
+      features: {
+        FetchExternalResources: ['script'],
+        ProcessExternalResources: ['script'],
+        SkipExternalResources: false
+      }
+    })
 
-    window._canvas = window.document.getElementById('myChart')
-    window.ctx = window._canvas.getContext('2d')
-  
-    window.config = config
-     
     window.CanvasRenderingContext2D = Canvas.Context2d
-  
-    window.Chart(window.ctx, window.config)
 
-    window._chart = new window.Chart(window.ctx, window.config)
+    config.options.responsive = false
+    config.animation = false
+    config.width = 400
+    config.height = 400
 
-    window._canvas.toBlob(function (blob, err) { // no error
-      console.log('BLOB', blob) // never reached
+    // console.log('canvas', _canvas)
+    // console.log('ctx', _ctx)
+    console.log('window.Chart', window.Chart)
+
+    const _canvas = window.document.getElementById('myChart')
+    const _ctx = _canvas.getContext('2d')
+
+    // If I just draw a circle it is rendered fine
+    // _ctx.beginPath()
+    // _ctx.arc(95,50,40,0,2*Math.PI)
+    // _ctx.stroke()
+
+    new window.Chart(_ctx, config)
+
+    _canvas.toBlob(function (blob, err) {
+      console.log('ERR', err)
+      var out = fs.createWriteStream(__dirname + '/test.png')
+      out.write(jsdom.blobToBuffer(blob))
+
+      opn('file://' + __dirname + '/test.png')
     }, 'image/png')
-
-    window._canvas.toBlob(function (blob, err) { // Empty JPEG image (DNL not supported)
-      console.log('BLOB', blob) // never reached
-    }, 'image/jpg')
   } catch (e) {
     console.log('ERR', e)
   }
