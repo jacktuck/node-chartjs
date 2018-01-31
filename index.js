@@ -30,7 +30,12 @@ var env = pify(jsdom.env)
 
     window.CanvasRenderingContext2D = Canvas.Context2d
 
-    config.options.responsive = false
+    config.options = {
+      responsive: false,
+      width: 400,
+      height: 400,
+      animation: false
+    }
     config.animation = false
     config.width = 400
     config.height = 400
