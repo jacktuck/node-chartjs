@@ -2,16 +2,16 @@ const fs = require('fs')
 const jsdom = require('jsdom')
 const Canvas = require('canvas-prebuilt')
 const pify = require('pify')
-const config = require('./config')
+let config = require('./config')
 const opn = require('opn')
 
 const env = pify(jsdom.env)
 
 // resolve peer dependancy
-const chartpath = require.resolve('chart.js')
+require.resolve('chart.js')
 const chartjs = fs.readFileSync('./node_modules/chart.js/dist/Chart.min.js', 'utf-8')
 
-;(async function (exports) {
+;(async function (module) {
   const html = `<html>
     <body>
       <div id='chart-div' style='font-size:12; width:400; height:400;'>
@@ -32,29 +32,50 @@ const chartjs = fs.readFileSync('./node_modules/chart.js/dist/Chart.min.js', 'ut
 
   window.CanvasRenderingContext2D = Canvas.Context2d
 
-  config.options = {
-    responsive: false,
-    width: 400,
-    height: 400,
-    animation: false
-  }
+  const fixConfig = config => Object.assign({}, config, {
+    options: {
+      responsive: false,
+      width: 400,
+      height: 400,
+      animation: false
+    }
+  }) 
 
-  console.log('window.Chart', window.Chart)
+  // temp
+  config = Object.assign({}, config, {
+    options: {
+      responsive: false,
+      width: 400,
+      height: 400,
+      animation: false
+    }
+  })
 
   const canvas = window.document.getElementById('myChart')
   const ctx = canvas.getContext('2d')
 
-  new window.Chart(ctx, config)
+  const draw = new window.Chart(ctx, config)
 
   // rearg and promisify canvas toBlob
-  const toBlob = (mime = 'image/png') => pify((mime, cb) => canvas.toBlob(cb, mime), { errorFirst: false })(mime)
+  const toBlob = pify((mime, cb) => canvas.toBlob(cb, mime), { errorFirst: false })
 
-  const blob = await toBlob()
+  const toBuffer = (mime = 'image/png') => toBlob(mime).then(jsdom.blobToBuffer)
+  const toFile = (path, mime = 'image/png') => toBuffer(mime).then(blob => pify(fs.writeFile)(path, blob, 'binary'))
 
-  const out = fs.createWriteStream(__dirname + '/test.png')
-  out.write(jsdom.blobToBuffer(blob))
+  // const blob = await toBlob()
+// console.log('blobx', blob)
+
+
+  // const out = fs.createWriteStream(__dirname + '/test.png')
+  // out.write(jsdom.blobToBuffer(blob))
+  await toFile('test.png')
+console.log(4343)
 
   opn('file://' + __dirname + '/test.png')
 
+  module.toBuffer = toBuffer
+  module.toFile = toFile
 
+  module.canvas = canvas
+  module.ctx = ctx
 })(module.exports).catch(console.log)
