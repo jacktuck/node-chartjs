@@ -11,11 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "canvas-prebuilt": "^1.6.5-prerelease.1",
-    "chart.js": "^2.0.2",
+    "chart.js": "^2.4.0",
     "jsdom": "^9.12.0",
     "pify": "^3.0.0"
   },
   "devDependencies": {
+    "delay": "^2.0.0",
     "opn": "^5.2.0"
   },
   "peerDependencies": {
