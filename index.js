@@ -1,26 +1,27 @@
-var fs = require('fs')
-var jsdom = require('jsdom')
-var Canvas = require('canvas-prebuilt')
-var pify = require('pify')
-var config = require('./config')
-var opn = require('opn')
+const fs = require('fs')
+const jsdom = require('jsdom')
+const Canvas = require('canvas-prebuilt')
+const pify = require('pify')
+const config = require('./config')
+const opn = require('opn')
 
-var env = pify(jsdom.env)
+const env = pify(jsdom.env)
+const chartjs = fs.readFileSync('./node_modules/chart.js/dist/Chart.min.js', 'utf-8')
 
 ;(async function (exports) {
-  var chart = 'https://cdn.jsdelivr.net/npm/chart.js@2.4/dist/Chart.min.js'
 
-  var html = `<html>
+  const html = `<html>
     <body>
       <div id='chart-div' style='font-size:12; width:400; height:400;'>
         <canvas id='myChart' width=400 height=400></canvas>
       </div>
     </body>
+    <script>${chartjs}</script>
 
   </html>`
 
   try {
-    var window = await env(html, [chart], {
+    const window = await env(html, null, {
       features: {
         FetchExternalResources: ['script'],
         ProcessExternalResources: ['script'],
@@ -56,7 +57,7 @@ var env = pify(jsdom.env)
 
     _canvas.toBlob(function (blob, err) {
       console.log('ERR', err)
-      var out = fs.createWriteStream(__dirname + '/test.png')
+      const out = fs.createWriteStream(__dirname + '/test.png')
       out.write(jsdom.blobToBuffer(blob))
 
       opn('file://' + __dirname + '/test.png')
