@@ -6,10 +6,12 @@ const config = require('./config')
 const opn = require('opn')
 
 const env = pify(jsdom.env)
+
+// resolve peer dependancy
+const chartpath = require.resolve('chart.js')
 const chartjs = fs.readFileSync('./node_modules/chart.js/dist/Chart.min.js', 'utf-8')
 
 ;(async function (exports) {
-
   const html = `<html>
     <body>
       <div id='chart-div' style='font-size:12; width:400; height:400;'>
@@ -17,52 +19,42 @@ const chartjs = fs.readFileSync('./node_modules/chart.js/dist/Chart.min.js', 'ut
       </div>
     </body>
     <script>${chartjs}</script>
-
   </html>`
 
-  try {
-    const window = await env(html, null, {
-      features: {
-        FetchExternalResources: ['script'],
-        ProcessExternalResources: ['script'],
-        SkipExternalResources: false
-      }
-    })
 
-    window.CanvasRenderingContext2D = Canvas.Context2d
-
-    config.options = {
-      responsive: false,
-      width: 400,
-      height: 400,
-      animation: false
+  const window = await env(html, null, {
+    features: {
+      FetchExternalResources: ['script'],
+      ProcessExternalResources: ['script'],
+      SkipExternalResources: false
     }
-    config.animation = false
-    config.width = 400
-    config.height = 400
+  })
 
-    // console.log('canvas', _canvas)
-    // console.log('ctx', _ctx)
-    console.log('window.Chart', window.Chart)
+  window.CanvasRenderingContext2D = Canvas.Context2d
 
-    const _canvas = window.document.getElementById('myChart')
-    const _ctx = _canvas.getContext('2d')
-
-    // If I just draw a circle it is rendered fine
-    // _ctx.beginPath()
-    // _ctx.arc(95,50,40,0,2*Math.PI)
-    // _ctx.stroke()
-
-    new window.Chart(_ctx, config)
-
-    _canvas.toBlob(function (blob, err) {
-      console.log('ERR', err)
-      const out = fs.createWriteStream(__dirname + '/test.png')
-      out.write(jsdom.blobToBuffer(blob))
-
-      opn('file://' + __dirname + '/test.png')
-    }, 'image/png')
-  } catch (e) {
-    console.log('ERR', e)
+  config.options = {
+    responsive: false,
+    width: 400,
+    height: 400,
+    animation: false
   }
-})(module.exports)
+
+  console.log('window.Chart', window.Chart)
+
+  const canvas = window.document.getElementById('myChart')
+  const ctx = canvas.getContext('2d')
+
+  new window.Chart(ctx, config)
+
+  // rearg and promisify canvas toBlob
+  const toBlob = (mime = 'image/png') => pify((mime, cb) => canvas.toBlob(cb, mime), { errorFirst: false })(mime)
+
+  const blob = await toBlob()
+
+  const out = fs.createWriteStream(__dirname + '/test.png')
+  out.write(jsdom.blobToBuffer(blob))
+
+  opn('file://' + __dirname + '/test.png')
+
+
+})(module.exports).catch(console.log)
