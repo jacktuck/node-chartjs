@@ -102,4 +102,5 @@ cjs.makeChart(barConfig)
         opn('test.bar.png')
       })
   })
+  .catch(console.error)
 
