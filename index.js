@@ -1,12 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 const EventEmitter = require('events')
+const {promisify} = require('util')
 
-const jsdom = require('jsdom')
+const {JSDOM} = require('jsdom')
 const Canvas = require('canvas-prebuilt')
-const pify = require('pify')
-
-const env = pify(jsdom.env)
 
 // resolve peer dependancy
 const chartJSPath = path.dirname(require.resolve('chart.js'))
@@ -20,6 +18,8 @@ class ChartJs extends EventEmitter {
   }
 
   async makeChart (chartConfig) {
+    this._chart && this._chart.destroy()
+
     const html = `<html>
       <body>
         <div id='chart-div' style='font-size:12; width:${this.width}; height:${this.height};'>
@@ -29,14 +29,16 @@ class ChartJs extends EventEmitter {
       <script>${chartJSSrc}</script>
     </html>`
 
-    this.window = await env(html, null, {
+    const {window} = new JSDOM(html, {
       features: {
         FetchExternalResources: ['script'],
         ProcessExternalResources: ['script'],
         SkipExternalResources: false
-      }
+      },
+      runScripts: 'dangerously'
     })
 
+    this.window = window
     this.window.CanvasRenderingContext2D = Canvas.Context2d
 
     chartConfig.options = chartConfig.options || {}
@@ -56,7 +58,6 @@ class ChartJs extends EventEmitter {
     this.emit('beforeDraw', this.window.Chart)
 
     if (this.chartConfig.options.plugins) {
-      console.log('registering plugins...')
       this.window.Chart.pluginService.register(this.chartConfig.options.plugins)
     }
 
@@ -71,23 +72,35 @@ class ChartJs extends EventEmitter {
       }
     }
 
-    this.window.Chart(this.ctx, this.chartConfig)
+    this._chart = this.window.Chart(this.ctx, this.chartConfig)
 
     return this
   }
 
   toBlob (mime) {
-    return pify((mime, cb) => this.canvas.toBlob(cb, mime), { errorFirst: false })(mime)
+    const toBlobRearg = (mime, cb) => this.canvas.toBlob((blob, err) => cb(err, blob), mime)
+  
+    return promisify(toBlobRearg)(mime)
   }
 
   toBuffer (mime = 'image/png') {
-    return this.toBlob(mime)
-      .then(jsdom.blobToBuffer)
+    return this.toBlob(mime).then(blob => new Promise((resolve, reject) => {
+      const reader = new this.window.FileReader()
+
+      reader.onload = function (){
+        const buffer = new Buffer(reader.result)
+        resolve(buffer)
+      }
+
+      reader.readAsArrayBuffer(blob)
+    }))
   }
 
   toFile (path, mime = 'image/png') {
+    const writeFile = promisify(fs.writeFile)
+
     return this.toBuffer(mime)
-      .then(blob => pify(fs.writeFile)(path, blob, 'binary'))
+      .then(blob => writeFile(path, blob, 'binary'))
   }
 }
 
