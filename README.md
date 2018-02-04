@@ -25,6 +25,8 @@ With a few improvements we think:
 
 You'll need to npm install `chart.js`. This library will pick up the exact version you end up installing.
 
+*Seems to work best with chart.js@2.4.x any later and we have artifacts*
+
 ### Cairo
 
 Before installing this library you'll need to install Cairo for your system. The instructions for the most common platforms can be found [here](https://github.com/Automattic/node-canvas#installation).
