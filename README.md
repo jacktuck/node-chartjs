@@ -25,11 +25,7 @@ Based on previous work by https://github.com/vmpowerio/chartjs-node
 
 You'll need to `npm install chart.js` as it is a peer dependancy of node-chartjs. Tested with `chart.js@2.4.x` any later and we have artifacts there are some issues open upstream, we antcipate fixes in 2.8.x*
 
-### Cairo
-
-Before installing this library you'll need to install Cairo for your system. The instructions for the most common platforms can be found [here](https://github.com/Automattic/node-canvas#installation).
-
-Now you're ready to install the package:
+Also make sure you have installed canvas' dependencies ([see installation wiki](https://github.com/Automattic/node-canvas/wiki/_pages))
 
 ```
 npm install node-chartjs
