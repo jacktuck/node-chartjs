@@ -16,3 +16,40 @@ With a few improvements we think:
 [node-canvas](https://github.com/Automattic/node-canvas) - a Cairo backed Canvas implementation for NodeJS. [read installation wiki](https://github.com/Automattic/node-canvas/wiki/_pages).
 
 [jsdom](https://github.com/jsdom/jsdom) - a implementation of the WHATWG DOM and HTML standards for use with node.js
+
+
+
+## Getting Started
+
+### Peer Dependencies
+
+You'll need to npm install `chart.js`. This library will pick up the exact version you end up installing.
+
+### Cairo
+
+Before installing this library you'll need to install Cairo for your system. The instructions for the most common platforms can be found [here](https://github.com/Automattic/node-canvas#installation).
+
+Now you're ready to install the package:
+
+```
+npm install node-chartjs
+```
+
+## Usage
+
+```js
+const Chart = require('node-chartjs')
+const chart = new ChartJs(200, 200) // 1000 x 1000 is default
+
+chart.makeChart({ ... })
+.then(res => {
+  chart.drawChart()
+
+  chart.toFile('test.line.png')
+    .then(_ => {
+      // file is written
+    })
+})
+```
+
+See examples folder for more
