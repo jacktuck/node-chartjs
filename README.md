@@ -25,7 +25,7 @@ With a few improvements we think:
 
 You'll need to npm install `chart.js`. This library will pick up the exact version you end up installing.
 
-*Seems to work best with chart.js@2.4.x any later and we have artifacts*
+*Seems to work best with `chart.js@2.4.x` any later and we have artifacts*
 
 ### Cairo
 
