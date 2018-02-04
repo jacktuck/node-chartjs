@@ -1,5 +1,7 @@
 # node-chartjs
 
+Chart.js on the server in Node.js 8.x.x or later
+
 Based on previous work by https://github.com/vmpowerio/chartjs-node
 
 *With a few improvements we think:*

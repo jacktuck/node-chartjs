@@ -1,4 +1,4 @@
-const ChartJs = require('./')
+const ChartJs = require('..')
 
 const cjs = new ChartJs(1080, 526)
 
