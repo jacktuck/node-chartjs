@@ -23,9 +23,7 @@ With a few improvements we think:
 
 ### Peer Dependencies
 
-You'll need to npm install `chart.js`. This library will pick up the exact version you end up installing.
-
-*Seems to work best with `chart.js@2.4.x` any later and we have artifacts*
+You'll need to npm install `chart.js`. Tested and works with `chart.js@2.4.x` any later and we have artifacts there are some issues open upstream, we antcipate fixes in 2.8.x*
 
 ### Cairo
 
