@@ -1,14 +1,26 @@
 {
   "name": "node-chartjs",
   "version": "0.0.3",
-  "description": "",
+  "description": "Chart.js on the server in Node.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacktuck/node-chartjs.git"
+  },
+  "keywords": [
+    "chart.js",
+    "charts",
+    "line",
+    "bar",
+    "pie",
+    "server-side",
+    "node.js"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Jack Tuck",
+  "license": "MIT",
   "dependencies": {
     "canvas-prebuilt": "^2.0.0-alpha.2",
     "jsdom": "^11.6.2"

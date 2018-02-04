@@ -1,9 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const EventEmitter = require('events')
-const {promisify} = require('util')
+const { promisify } = require('util')
 
-const {JSDOM} = require('jsdom')
+const { JSDOM } = require('jsdom')
 const Canvas = require('canvas-prebuilt')
 
 // resolve peer dependancy
@@ -29,7 +29,7 @@ class ChartJs extends EventEmitter {
       <script>${chartJSSrc}</script>
     </html>`
 
-    const {window} = new JSDOM(html, {
+    const { window } = new JSDOM(html, {
       features: {
         FetchExternalResources: ['script'],
         ProcessExternalResources: ['script'],
@@ -81,19 +81,22 @@ class ChartJs extends EventEmitter {
     const toBlobRearg = (mime, cb) => this.canvas.toBlob((blob, err) => cb(err, blob), mime)
   
     return promisify(toBlobRearg)(mime)
+      .catch(console.error)
   }
 
   toBuffer (mime = 'image/png') {
-    return this.toBlob(mime).then(blob => new Promise((resolve, reject) => {
-      const reader = new this.window.FileReader()
+    return this.toBlob(mime)
+      .then(blob => new Promise((resolve, reject) => {
+        const reader = new this.window.FileReader()
 
-      reader.onload = function (){
-        const buffer = new Buffer(reader.result)
-        resolve(buffer)
-      }
+        reader.onload = function (){
+          const buffer = new Buffer(reader.result)
+          resolve(buffer)
+        }
 
-      reader.readAsArrayBuffer(blob)
-    }))
+        reader.readAsArrayBuffer(blob)
+      }))
+      .catch(console.error)
   }
 
   toFile (path, mime = 'image/png') {
@@ -101,6 +104,7 @@ class ChartJs extends EventEmitter {
 
     return this.toBuffer(mime)
       .then(blob => writeFile(path, blob, 'binary'))
+      .catch(console.error)
   }
 }
 
