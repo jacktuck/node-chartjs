@@ -13,6 +13,6 @@ With a few improvements we think:
 
 [canvas-prebuilt](https://github.com/node-gfx/node-canvas-prebuilt) - prebuilt node-canvas binaries published to NPM. Speeds up install time 🚀
 
-[node-canvas](https://github.com/Automattic/node-canvas) - a Cairo backed Canvas implementation for NodeJS. [installation](https://github.com/Automattic/node-canvas/wiki/_pages).
+[node-canvas](https://github.com/Automattic/node-canvas) - a Cairo backed Canvas implementation for NodeJS. [read installation wiki](https://github.com/Automattic/node-canvas/wiki/_pages).
 
 [jsdom](https://github.com/jsdom/jsdom) - a implementation of the WHATWG DOM and HTML standards for use with node.js
