@@ -14,9 +14,9 @@ Based on previous work by https://github.com/vmpowerio/chartjs-node
 
 ## 💖 Made possibly by:
 
-- [canvas-prebuilt](https://github.com/node-gfx/node-canvas-prebuilt) - prebuilt node-canvas binaries published to NPM. Speeds up install time 🚀
+- [canvas-prebuilt](https://github.com/node-gfx/node-canvas-prebuilt) - prebuilt node-canvas (a Cairo backed Canvas implementation in Node.js) binaries published to NPM. It comes bundled with Pango, Cairo, etc whcih speeds up install time 🚀
 
-- [node-canvas](https://github.com/Automattic/node-canvas) - a Cairo backed Canvas implementation for NodeJS. [read installation wiki](https://github.com/Automattic/node-canvas/wiki/_pages).
+- [node-canvas](https://github.com/Automattic/node-canvas) - a Cairo backed Canvas implementation for NodeJS.
 
 - [jsdom](https://github.com/jsdom/jsdom) - a implementation of the WHATWG DOM and HTML standards for use with node.js
 
