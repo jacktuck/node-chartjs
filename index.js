@@ -4,7 +4,7 @@ const EventEmitter = require('events')
 const { promisify } = require('util')
 
 const { JSDOM } = require('jsdom')
-const Canvas = require('canvas-prebuilt')
+const Canvas = require('canvas')
 
 // resolve peer dependancy
 const chartJSPath = path.dirname(require.resolve('chart.js'))

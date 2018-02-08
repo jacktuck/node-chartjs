@@ -6,7 +6,6 @@ Based on previous work by https://github.com/vmpowerio/chartjs-node
 
 *With a few improvements we think:*
 
-- Uses prebuilt canvas binaries for faster npm installs
 - Uses the newer ~9.x.x~ 11.x.x version of JSDOM
 - Does not pollute node's global namespace
 
@@ -14,9 +13,7 @@ Based on previous work by https://github.com/vmpowerio/chartjs-node
 
 ## 💖 Made possibly by:
 
-- [canvas-prebuilt](https://github.com/node-gfx/node-canvas-prebuilt) - prebuilt node-canvas (a Cairo backed Canvas implementation in Node.js) binaries bundled with Pango, Cairo, etc which speeds up install time 🚀
-
-- [node-canvas](https://github.com/Automattic/node-canvas) - a Cairo backed Canvas implementation for NodeJS.
+- [node-canvas](https://github.com/Automattic/node-canvas) - a Cairo backed Canvas implementation for NodeJS. See [installation wiki](https://github.com/Automattic/node-canvas/wiki/Installation---Ubuntu-and-other-Debian-based-systems)
 
 - [jsdom](https://github.com/jsdom/jsdom) - a implementation of the WHATWG DOM and HTML standards for use with node.js
 
