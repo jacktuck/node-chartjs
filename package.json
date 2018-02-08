@@ -29,7 +29,7 @@
     "jsdom": "^11.6.2"
   },
   "devDependencies": {
-    "chart.js": "^2.4.0",
+    "chart.js": "2.4.0",
     "opn": "^5.2.0"
   },
   "peerDependencies": {
