@@ -13,7 +13,7 @@ Based on previous work by https://github.com/vmpowerio/chartjs-node
 
 ## 💖 Made possibly by:
 
-- [node-canvas](https://github.com/Automattic/node-canvas) - a Cairo backed Canvas implementation for NodeJS.
+- [node-canvas](https://github.com/Automattic/node-canvas) - a Cairo backed Canvas implementation for NodeJS. See [installation wiki](https://github.com/Automattic/node-canvas/wiki/Installation---Ubuntu-and-other-Debian-based-systems)
 
 - [jsdom](https://github.com/jsdom/jsdom) - a implementation of the WHATWG DOM and HTML standards for use with node.js
 
