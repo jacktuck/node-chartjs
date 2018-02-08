@@ -25,7 +25,7 @@
   "author": "Jack Tuck",
   "license": "MIT",
   "dependencies": {
-    "canvas-prebuilt": "2.0.0-alpha.2",
+    "canvas": "2.0.0-alpha.2",
     "jsdom": "^11.6.2"
   },
   "devDependencies": {
