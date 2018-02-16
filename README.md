@@ -22,7 +22,7 @@ Based on previous work by https://github.com/vmpowerio/chartjs-node
 
 ### Peer Dependencies
 
-You'll need to `npm install chart.js` as it is a peer dependancy of node-chartjs. Tested with `chart.js@2.4.x` any later and we have artifacts there are some issues open upstream, we antcipate fixes in 2.8.x*
+You'll need to `npm install chart.js` as it is a peer dependency of node-chartjs. Tested with `chart.js@2.4.x` any later and we have artifacts there are some issues open upstream, we anticipate fixes in 2.8.x*
 
 Also make sure you have installed canvas' dependencies ([see installation wiki](https://github.com/Automattic/node-canvas/wiki/_pages))
 
@@ -34,7 +34,7 @@ npm install node-chartjs
 
 ```js
 const Chart = require('node-chartjs')
-const chart = new ChartJs(200, 200) // 1000 x 1000 is default
+const chart = new Chart(200, 200) // 1000 x 1000 is default
 
 chart.makeChart({ ... })
 .then(res => {
