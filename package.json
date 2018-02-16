@@ -1,6 +1,6 @@
 {
   "name": "node-chartjs",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Chart.js on the server in Node.js",
   "engines": {
     "node": ">=8.0.0"
