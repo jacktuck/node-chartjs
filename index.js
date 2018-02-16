@@ -15,11 +15,11 @@ class ChartJs extends EventEmitter {
     super()
     this.height = height
     this.width = width
+
+    this.loadWindow()
   }
 
-  async makeChart (chartConfig) {
-    this._chart && this._chart.destroy()
-
+  loadWindow() {
     const html = `<html>
       <body>
         <div id='chart-div' style='font-size:12; width:${this.width}; height:${this.height};'>
@@ -40,6 +40,12 @@ class ChartJs extends EventEmitter {
 
     this.window = window
     this.window.CanvasRenderingContext2D = Canvas.Context2d
+    this.canvas = this.window.document.getElementById('myChart')
+    this.ctx = this.canvas.getContext('2d')
+  }
+
+  async makeChart (chartConfig) {
+    this._chart && this._chart.destroy()
 
     chartConfig.options = chartConfig.options || {}
     chartConfig.options.responsive = false
@@ -48,8 +54,6 @@ class ChartJs extends EventEmitter {
     chartConfig.options.animation = false
 
     this.chartConfig = chartConfig
-    this.canvas = this.window.document.getElementById('myChart')
-    this.ctx = this.canvas.getContext('2d')
 
     return this
   }
@@ -79,7 +83,7 @@ class ChartJs extends EventEmitter {
 
   toBlob (mime) {
     const toBlobRearg = (mime, cb) => this.canvas.toBlob((blob, err) => cb(err, blob), mime)
-  
+
     return promisify(toBlobRearg)(mime)
       .catch(console.error)
   }

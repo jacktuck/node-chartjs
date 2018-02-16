@@ -1,14 +1,105 @@
 {
-  "name": "node-chartjs",
-  "version": "0.0.6",
+  "_args": [
+    [
+      {
+        "raw": "node-chartjs",
+        "scope": null,
+        "escapedName": "node-chartjs",
+        "name": "node-chartjs",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\Users\\Raph\\Documents\\apps\\fortnite\\bot"
+    ]
+  ],
+  "_from": "node-chartjs@latest",
+  "_id": "node-chartjs@0.0.6",
+  "_inCache": true,
+  "_location": "/node-chartjs",
+  "_nodeVersion": "8.4.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/node-chartjs_0.0.6_1518097302362_0.6829172463110351"
+  },
+  "_npmUser": {
+    "name": "jacktuck",
+    "email": "jack-tuck@hotmail.com"
+  },
+  "_npmVersion": "5.3.0",
+  "_phantomChildren": {
+    "abab": "1.0.4",
+    "array-equal": "1.0.0",
+    "async-limiter": "1.0.0",
+    "browser-process-hrtime": "0.1.2",
+    "content-type-parser": "1.0.2",
+    "cssom": "0.3.2",
+    "cssstyle": "0.2.37",
+    "domexception": "1.0.1",
+    "escodegen": "1.9.0",
+    "html-encoding-sniffer": "1.0.2",
+    "left-pad": "1.2.0",
+    "lodash.sortby": "4.7.0",
+    "nan": "2.8.0",
+    "nwmatcher": "1.4.3",
+    "parse-css-font": "2.0.2",
+    "pn": "1.1.0",
+    "request": "2.83.0",
+    "request-promise-native": "1.0.5",
+    "safe-buffer": "5.1.1",
+    "sax": "1.2.4",
+    "symbol-tree": "3.2.2",
+    "tough-cookie": "2.3.3",
+    "ultron": "1.1.0",
+    "units-css": "0.4.0",
+    "w3c-hr-time": "1.0.1",
+    "whatwg-encoding": "1.0.3"
+  },
+  "_requested": {
+    "raw": "node-chartjs",
+    "scope": null,
+    "escapedName": "node-chartjs",
+    "name": "node-chartjs",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/node-chartjs/-/node-chartjs-0.0.6.tgz",
+  "_shasum": "8b86f17f40242cf630d6966f2f0592c1a56bf817",
+  "_shrinkwrap": null,
+  "_spec": "node-chartjs",
+  "_where": "C:\\Users\\Raph\\Documents\\apps\\fortnite\\bot",
+  "author": {
+    "name": "Jack Tuck"
+  },
+  "bugs": {
+    "url": "https://github.com/jacktuck/node-chartjs/issues"
+  },
+  "dependencies": {
+    "canvas": "2.0.0-alpha.2",
+    "jsdom": "^11.6.2"
+  },
   "description": "Chart.js on the server in Node.js",
+  "devDependencies": {
+    "chart.js": "2.4.0",
+    "opn": "^5.2.0"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-vKRXgmCIpoVtIt0VRDLwaLYUATi1eBAniELm0oQsB6D1aOeD8UJaqYJNMzJBwHjuiSBxPkjY1GXPKpOpghi/hA==",
+    "shasum": "8b86f17f40242cf630d6966f2f0592c1a56bf817",
+    "tarball": "https://registry.npmjs.org/node-chartjs/-/node-chartjs-0.0.6.tgz",
+    "fileCount": 9,
+    "unpackedSize": 32823
+  },
   "engines": {
     "node": ">=8.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jacktuck/node-chartjs.git"
-  },
+  "gitHead": "4aae163384e342428a50b7b134e1c8e97c1c35b5",
+  "homepage": "https://github.com/jacktuck/node-chartjs#readme",
   "keywords": [
     "chart.js",
     "charts",
@@ -18,21 +109,27 @@
     "server-side",
     "node.js"
   ],
+  "license": "MIT",
   "main": "index.js",
+  "maintainers": [
+    {
+      "name": "jacktuck",
+      "email": "jack-tuck@hotmail.com"
+    }
+  ],
+  "name": "node-chartjs",
+  "optionalDependencies": {},
+  "peerDependencies": {
+    "chart.js": "2.4.0"
+  },
+  "readme": "# node-chartjs\n\nChart.js on the server in Node.js 8.x.x or later\n\nBased on previous work by https://github.com/vmpowerio/chartjs-node\n\n*With a few improvements we think:*\n\n- Uses the newer ~9.x.x~ 11.x.x version of JSDOM\n- Does not pollute node's global namespace\n\n> Note that we strongly advise against trying to \"execute scripts\" by mashing together the jsdom and Node global environments (e.g. by doing global.window = dom.window), and then executing scripts or test code inside the Node global environment. Instead, you should treat jsdom like you would a browser, and run all scripts and tests that need access to a DOM inside the jsdom environment, using window.eval or runScripts: \"dangerously\". This might require, for example, creating a browserify bundle to execute as a <script> element—just like you would in a browser.\n\n## 💖 Made possibly by:\n\n- [node-canvas](https://github.com/Automattic/node-canvas) - a Cairo backed Canvas implementation for NodeJS. See [installation wiki](https://github.com/Automattic/node-canvas/wiki/Installation---Ubuntu-and-other-Debian-based-systems)\n\n- [jsdom](https://github.com/jsdom/jsdom) - a implementation of the WHATWG DOM and HTML standards for use with node.js\n\n\n## Getting Started\n\n### Peer Dependencies\n\nYou'll need to `npm install chart.js` as it is a peer dependancy of node-chartjs. Tested with `chart.js@2.4.x` any later and we have artifacts there are some issues open upstream, we antcipate fixes in 2.8.x*\n\nAlso make sure you have installed canvas' dependencies ([see installation wiki](https://github.com/Automattic/node-canvas/wiki/_pages))\n\n```\nnpm install node-chartjs\n```\n\n## Usage\n\n```js\nconst Chart = require('node-chartjs')\nconst chart = new ChartJs(200, 200) // 1000 x 1000 is default\n\nchart.makeChart({ ... })\n.then(res => {\n  chart.drawChart()\n\n  chart.toFile('test.line.png')\n    .then(_ => {\n      // file is written\n    })\n})\n```\n\nSee examples folder for more\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacktuck/node-chartjs.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jack Tuck",
-  "license": "MIT",
-  "dependencies": {
-    "canvas": "2.0.0-alpha.2",
-    "jsdom": "^11.6.2"
-  },
-  "devDependencies": {
-    "chart.js": "2.4.0",
-    "opn": "^5.2.0"
-  },
-  "peerDependencies": {
-    "chart.js": "2.4.0"
-  }
+  "version": "0.0.7"
 }
